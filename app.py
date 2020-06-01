@@ -5,7 +5,7 @@ from threading import Thread
 from time import sleep
 
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QMenu, QAction, QSystemTrayIcon
+from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QAction
 from pynput.mouse import Button, Controller
 from spotipy import Spotify, oauth2, SpotifyException
 
@@ -34,7 +34,6 @@ class Spotlightify:
                                          self.queue)
         self.ui = Ui(self.interactions)
         self.tray = self.get_tray()
-        self.app = QApplication([])
         self.setup_app()
 
     @staticmethod
@@ -114,15 +113,21 @@ class Spotlightify:
         tray.setToolTip("Spotlightify")
         return tray
 
-    def get_menu(self):
-        menu = QMenu()
+    def get_open_ui(self):
         open_ui = QAction("Open")
         open_ui.triggered.connect(self.show_ui)
-        menu.addAction(open_ui)
+        return open_ui
 
+    def get_exit_(self):
         exit_ = QAction("Exit")
         exit_.triggered.connect(self.exit_app)
-        menu.addAction(exit_)
+        return exit_
+
+    @staticmethod
+    def get_menu(actions):
+        menu = QMenu()
+        for action in actions:
+            menu.addAction(action)
         return menu
 
     @staticmethod
@@ -136,8 +141,9 @@ class Spotlightify:
 
     def setup_app(self):
         self.app.setQuitOnLastWindowClosed(False)
-        menu = self.get_menu()
-        self.start_listener(menu)
+        open_ui = self.get_open_ui()
+        menu = self.get_menu([open_ui, self.get_exit_()])
+        self.start_listener(open_ui)
         self.start_cashing()
         self.add_menu_the_tray(menu)
 
@@ -146,5 +152,5 @@ class Spotlightify:
 
 
 if __name__ == '__main__':
-    app = Spotlightify()
-    app.start_app()
+    spotlightify = Spotlightify()
+    spotlightify.start_app()

@@ -1,11 +1,20 @@
 import collections
-import requests
-import spotipy
-from os import sep, path
-import json
 import copy
-from definitions import ASSETS_DIR, CACHE_DIR
+import json
+from os import sep, path
 from pathlib import Path
+
+import spotipy
+
+from definitions import ASSETS_DIR, CACHE_DIR
+
+
+def is_int(value):
+    try:
+        int(str(value).strip())
+        return True
+    except ValueError:
+        return False
 
 
 class Interactions:
@@ -18,8 +27,9 @@ class Interactions:
         try:
             self.current_device_id = self.sp.devices()["devices"][0]["id"]
         except:
-            print("[WARNING] No device currently available. Make sure the Spotify desktop app is open and play a song on it to "
-                  "ensure that the device is discoverable. A device can be selected by typing 'device' into the Spotlightify search.")
+            print(
+                "[WARNING] No device currently available. Make sure the Spotify desktop app is open and play a song on it to "
+                "ensure that the device is discoverable. A device can be selected by typing 'device' into the Spotlightify search.")
         # Feature Toggles
         self.shuffle = False
         self.shuffle_text = "(OFF)"
@@ -36,7 +46,6 @@ class Interactions:
                   "selected. A device can be selected by typing 'device' into the Spotlightify search.")
 
     def get_song_uri(self, song_input):
-        song_uri = None
         try:
             song = self.sp.track(song_input)
             song_uri = song["uri"]
@@ -52,17 +61,6 @@ class Interactions:
             return self.sp.current_playback()["is_playing"]
         except:
             return False
-
-    def toggle_playback(self, *refresh_method: classmethod):
-        try:
-            if self.sp.current_playback()["is_playing"]:
-                self.sp.pause_playback(self.current_device_id)
-            else:
-                self.sp.start_playback(self.current_device_id)
-            for refresh in refresh_method:  # the refresh_method arg should only contain one class method
-                refresh()
-        except:
-            print("[ERROR] Playback could not be toggled")
 
     def is_shuffle_on(self):
         try:
@@ -190,13 +188,6 @@ class Interactions:
         except:
             print("Sorry, previous song not found")
 
-    def is_int(self, value):
-        try:
-            int(str(value).strip())
-            return True
-        except ValueError:
-            return False
-
     def perform_command(self, command, parent):
         self.refresh_token()
         if command["visual"] == 1 and command["parameter"] == 1:
@@ -217,7 +208,7 @@ class Interactions:
                     break
                 elif len(term) <= len(prefix):
                     if command["title"] == "Device" and prefix == og_parameter:
-                        matched = self.get_device_suggestions(command, og_parameter)
+                        matched = self.get_device_suggestions(command)
                     elif term == prefix[:len(term)]:
                         matched.append(command)
                         break
@@ -230,7 +221,7 @@ class Interactions:
                             elif command["title"] == "Playlist":
                                 matched = self.get_playlist_suggestions(command, parameter)
                             elif command["title"] == "Device":
-                                matched = self.get_device_suggestions(command, parameter)
+                                matched = self.get_device_suggestions(command)
                         elif command["parameter"] == 1:
                             new_command = copy.deepcopy(command)
                             new_command["exe_on_return"] = 1
@@ -241,23 +232,7 @@ class Interactions:
             matched = self.get_song_suggestions(self.command_list["Play"], og_parameter)
         return matched
 
-    def command_perform(self, command, parent):
-        self.refresh_token()
-        if command["visual"] == 1 and command["parameter"] == 1:
-            command["function"](self, parent, command["term"])
-        elif command["visual"] == 0 and command["parameter"] == 1:
-            command["function"](self, command["term"])
-        elif command["visual"] == 0 and command["parameter"] == 0:
-            command["function"](self)
-        elif command["visual"] == 1 and command["parameter"] == 0:
-            command["function"](self, parent)
-
-    def download_image(self, path, url, id_):
-        img_data = requests.get(url).content
-        with open(path + id_ + '.jpg', 'wb') as handler:
-            handler.write(img_data)
-
-    def get_device_suggestions(self, command, term):
+    def get_device_suggestions(self, command):
         matched = []
         devices = self.sp.devices()["devices"]
         for device in devices:
@@ -274,6 +249,7 @@ class Interactions:
         matched_sorted = sorted(matched, key=lambda k: k["title"])
         return matched_sorted
 
+    @staticmethod
     def get_json_cache(file):
         # takes string param file: "songs" will create songs.json with "{ songs: [], length: 0 }"
         file_path = f"{CACHE_DIR}{file}.json"
@@ -283,27 +259,8 @@ class Interactions:
                 json.dump({f"{file}": [], "length": 0}, f)
                 return file_path  # returns file path to json file
 
-    def get_playlist_suggestions(self, command, term):
-        with open(playlist_cache_file_path, 'r') as f:
-            data = json.load(f)
-            matched = []
-            for playlist in data["playlists"]:
-                if len(matched) >= 6:
-                    break
-                elif len(playlist["name"]) >= len(term):
-                    if playlist["name"][:len(term)].lower() == term:
-                        new_command = copy.deepcopy(command)
-                        new_command["icon"] = playlist["image"]
-                        new_command["title"] = playlist["name"]
-                        new_command["description"] = f"By {playlist['owner']}"
-                        new_command["term"] = f"{playlist['uri']}"
-                        new_command["exe_on_return"] = 1
-                        matched.append(new_command)
-        # for sorting commands into alphabetical order
-        matched_sorted = sorted(matched, key=lambda k: k["title"])
-        return matched_sorted
-
-    def get_song_suggestions(self, command, term):
+    @staticmethod
+    def get_song_suggestions(command, term):
         def check_for_duplicates():
             if len(matched) > 1:
                 for match in matched:
@@ -338,7 +295,7 @@ class Interactions:
                             if not check_for_duplicates():
                                 matched.append(new_command)
         except:
-            None
+            pass
 
         # for sorting commands into alphabetical order
         matched_sorted = [first_command]
@@ -346,7 +303,8 @@ class Interactions:
         matched_sorted.extend(sorted(matched, key=lambda k: k["title"]))
         return matched_sorted
 
-    def get_playlist_suggestions(self, command, term):
+    @staticmethod
+    def get_playlist_suggestions(command, term):
         if not path.isfile(playlist_cache_file_path):
             return []
         with open(playlist_cache_file_path, 'r') as f:
@@ -387,7 +345,7 @@ class Interactions:
             if 0 <= int_ <= 100:
                 self.sp.volume(int_, self.current_device_id)
         except:
-            None
+            pass
 
     def toggle_like_song(self, *refresh_method: classmethod):  # used to immediately refresh a svg
         current_song = self.sp.current_user_playing_track()["item"]
@@ -407,8 +365,9 @@ class Interactions:
             for refresh in refresh_method:  # the refresh_method arg should only contain one class method
                 refresh()
         except:
-            print("[ERROR] Could not toggle playback. Make a device has been selected. Use the 'device' command to select"
-                  " the appropriate device")
+            print(
+                "[ERROR] Could not toggle playback. Make a device has been selected. Use the 'device' command to select"
+                " the appropriate device")
 
     def toggle_shuffle(self, *refresh_method: classmethod):
         if self.is_shuffle_on:
@@ -433,7 +392,8 @@ class Interactions:
                    "function": pause_playback, "icon": f"{ASSETS_DIR}svg{sep}pause.svg", "visual": 0, "parameter": 0,
                    "match_change": 0, "exe_on_return": 1},
          "Playlist": {"title": "Playlist", "description": "Plays a playlist", "prefix": ["playlist "],
-                      "function": play_playlist, "icon": f"{ASSETS_DIR}svg{sep}playlist.svg", "visual": 0, "parameter": 1,
+                      "function": play_playlist, "icon": f"{ASSETS_DIR}svg{sep}playlist.svg", "visual": 0,
+                      "parameter": 1,
                       "match_change": 1, "exe_on_return": 0, "term": ""},
          "Liked": {"title": "Liked", "description": "Plays liked music", "prefix": ["liked"], "function": play_liked,
                    "icon": f"{ASSETS_DIR}svg{sep}heart.svg", "visual": 0, "parameter": 0, "match_change": 0,
@@ -454,13 +414,15 @@ class Interactions:
                   "match_change": 0,
                   "exe_on_return": 1},
          "Previous": {"title": "Previous", "description": "Plays previous song", "prefix": ["previous", "prev"],
-                      "function": previous_song, "icon": f"{ASSETS_DIR}svg{sep}backward.svg", "visual": 0, "parameter": 0,
+                      "function": previous_song, "icon": f"{ASSETS_DIR}svg{sep}backward.svg", "visual": 0,
+                      "parameter": 0,
                       "match_change": 0, "exe_on_return": 1},
          "Exit": {"title": "Exit", "description": "Exit Spotlightify", "prefix": ["exit"],
                   "function": exit, "icon": f"{ASSETS_DIR}svg{sep}moon.svg", "visual": 0, "parameter": 0,
                   "match_change": 0, "exe_on_return": 1},
          "Shuffle": {"title": r"Shuffle (OFF)", "description": "Toggles shuffle mode", "prefix": ["shuffle"],
-                     "function": toggle_shuffle, "icon": f"{ASSETS_DIR}svg{sep}shuffle.svg", "visual": 0, "parameter": 0,
+                     "function": toggle_shuffle, "icon": f"{ASSETS_DIR}svg{sep}shuffle.svg", "visual": 0,
+                     "parameter": 0,
                      "match_change": 0, "exe_on_return": 1},
          "Device": {"title": r"Device", "description": "Select device to play music from", "prefix": ["device"],
                     "function": set_device, "icon": f"{ASSETS_DIR}svg{sep}device.svg", "visual": 0, "parameter": 1,

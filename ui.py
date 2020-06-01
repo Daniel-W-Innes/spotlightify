@@ -1,8 +1,10 @@
 from os import sep
-from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLineEdit
+
 from PyQt5 import QtCore, QtGui
-from widgets import FunctionButtonsRow, SuggestRow, SvgButton
+from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLineEdit
+
 from definitions import ASSETS_DIR
+from widgets import FunctionButtonsRow, SuggestRow, SvgButton
 
 
 class Ui(QWidget):
@@ -73,7 +75,7 @@ class Ui(QWidget):
         self.function_row.move(0, 0)
         self.function_row.show()
         self.toggle_function_buttons()
-        
+
         # Mac setting
         self.textbox.setAttribute(QtCore.Qt.WA_MacShowFocusRect, 0)
 
@@ -181,7 +183,7 @@ class Ui(QWidget):
             self.textbox.deselect()  # deselects selected text as a result of focus
         else:
             self.store_previous_command()
-            self.interactions.command_perform(command, self)
+            self.interactions.perform_command(command, self)
             self.textbox.clear()
             self.hide()
 

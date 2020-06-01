@@ -1,9 +1,11 @@
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QLabel, QWidget, QPushButton
-from PyQt5.QtSvg import QSvgWidget
-from PyQt5.QtGui import QPixmap
-from definitions import ASSETS_DIR
 from os import sep
+
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtSvg import QSvgWidget
+from PyQt5.QtWidgets import QLabel, QWidget, QPushButton
+
+from definitions import ASSETS_DIR
 
 
 class FunctionButtonsRow(QWidget):
@@ -153,7 +155,3 @@ class SuggestRow(QPushButton):
             outline: 0px
         }
         ''')
-
-
-def set_theme(active_theme, row_input, row_function_buttons):
-    pass

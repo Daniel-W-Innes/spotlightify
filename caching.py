@@ -1,12 +1,14 @@
-from threading import Thread
-from queue import Queue
-from os import path, sep, mkdir
-from json import load, dump
 from datetime import datetime, timedelta
-from definitions import CACHE_DIR
-from colors import colors
-from requests import get
+from json import load, dump
+from os import path, sep, mkdir
+from queue import Queue
+from threading import Thread
 from time import sleep
+
+from requests import get
+
+from colors import Colors
+from definitions import CACHE_DIR
 
 
 def save_data_to_file(data, file):
@@ -25,7 +27,7 @@ class ImageQueue(Queue):
 class SongCachingThread(Thread):
     def __init__(self, queue: Queue, image_queue: ImageQueue):
         Thread.__init__(self)
-        self.title = f"[{colors.WARNING}CACHE{colors.RESET}]\t"
+        self.title = f"[{Colors.WARNING}CACHE{Colors.RESET}]\t"
         self.queue = queue
         self.image_queue = image_queue
 
@@ -43,7 +45,7 @@ class SongCachingThread(Thread):
                     song = song["track"]
 
                 if song["is_local"]:
-                    print(f"Skipping local track {colors.WARNING}{song['name']}{colors.RESET}")
+                    print(f"Skipping local track {Colors.WARNING}{song['name']}{Colors.RESET}")
                     continue
 
                 artists = ""
@@ -91,7 +93,6 @@ class SongCachingThread(Thread):
 
             if len(song_data) > 0:
                 self.cache_songs(song_data)
-                song_data = []
             else:
                 sleep(30)
 
@@ -101,7 +102,7 @@ class CachingThread(Thread):
         Thread.__init__(self)
         self.sp = sp
         self.cache_type = cache_type
-        self.title = f"[{colors.BLUE}CACHE{colors.RESET}]\t"
+        self.title = f"[{Colors.BLUE}CACHE{Colors.RESET}]\t"
         self.queue = queue
         self.image_queue = image_queue
         print(f"{self.title}Initialised")
@@ -134,9 +135,9 @@ class CachingThread(Thread):
                         url = playlist["images"][0]["url"]
                     else:
                         url = playlist["images"][2]["url"]
+                    self.image_queue.put_image(playlist["id"], url)
                 except IndexError:
                     print("Error occurred getting image for playlist", playlist)
-                self.image_queue.put_image(playlist["id"], url)
 
                 data["playlists"][playlist["id"]] = {
                     "name": playlist["name"],
@@ -159,7 +160,7 @@ class CachingThread(Thread):
                 self.queue.put(songs_to_add)
 
         except:
-            None
+            pass
 
     def cache_liked_songs(self):
         results = self.sp.current_user_saved_tracks()
@@ -167,7 +168,7 @@ class CachingThread(Thread):
         while results["next"]:
             results = self.sp.next(results)
             tracks.extend(results["items"])
-        print(f"\n {colors.WARNING}{len(tracks)}{colors.RESET}")
+        print(f"\n {Colors.WARNING}{len(tracks)}{Colors.RESET}")
         self.queue.put(tracks)
 
     def run(self):
@@ -188,7 +189,6 @@ class ImageCachingThread(Thread):
     @staticmethod
     def download_image(url, file_name):
         art_path = f"{CACHE_DIR}art{sep}"
-
         try:
             if not path.exists(art_path):
                 mkdir(art_path)
@@ -198,7 +198,7 @@ class ImageCachingThread(Thread):
                 with open(image_path, 'wb') as handler:
                     handler.write(image_data)
         except:
-            print(f"Error occurred saving file {colors.FAIL}{file_name}.jpg{colors.RESET}")
+            print(f"Error occurred saving file {Colors.FAIL}{file_name}.jpg{Colors.RESET}")
 
     def run(self):
         print("Starting image cache thread")

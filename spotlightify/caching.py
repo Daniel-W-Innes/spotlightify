@@ -7,8 +7,8 @@ from time import sleep
 
 from requests import get
 
-from colors import Colors
-from definitions import CACHE_DIR
+from spotlightify.colors import Colors
+from spotlightify.definitions import CACHE_DIR
 
 
 def save_data_to_file(data, file):

@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtWidgets import QLabel, QWidget, QPushButton
 
-from definitions import ASSETS_DIR
+from spotlightify.definitions import ASSETS_DIR
 
 
 class FunctionButtonsRow(QWidget):

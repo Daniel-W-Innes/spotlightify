@@ -9,12 +9,12 @@ from PyQt5.QtWidgets import QApplication, QSystemTrayIcon, QMenu, QAction
 from pynput.mouse import Button, Controller
 from spotipy import Spotify, oauth2, SpotifyException
 
-from caching import CachingThread, SongCachingThread, ImageCachingThread, ImageQueue
-from config import USERNAME, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
-from definitions import ASSETS_DIR, CACHE_DIR
-from interactions import Interactions
-from shortcuts import listener
-from ui import Ui
+from spotlightify.caching import CachingThread, SongCachingThread, ImageCachingThread, ImageQueue
+from spotlightify.config import USERNAME, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI
+from spotlightify.definitions import ASSETS_DIR, CACHE_DIR
+from spotlightify.interactions import Interactions
+from spotlightify.shortcuts import listener
+from spotlightify.ui import Ui
 
 #  Allow users to use the default spotipy env variables
 
@@ -28,7 +28,7 @@ class Spotlightify:
         self.app = QApplication([])
         self.queue = Queue()
         self.sp_oauth = self.get_sp_oauth()
-        self.token_info = self.sp_oauth.get_cached_token()
+        self.token_info = self.sp_oauth.get_access_token(as_dict=True)
         self.authenticated_spotify = self.get_authenticated_spotify(self.token_info["access_token"])
         self.interactions = Interactions(self.authenticated_spotify, self.token_info, self.sp_oauth, self.exit_app,
                                          self.queue)
@@ -151,6 +151,10 @@ class Spotlightify:
         self.app.exec_()
 
 
-if __name__ == '__main__':
+def main():
     spotlightify = Spotlightify()
     spotlightify.start_app()
+
+
+if __name__ == '__main__':
+    main()

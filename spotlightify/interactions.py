@@ -6,7 +6,7 @@ from pathlib import Path
 
 import spotipy
 
-from definitions import ASSETS_DIR, CACHE_DIR
+from spotlightify.definitions import ASSETS_DIR, CACHE_DIR
 
 
 def is_int(value):

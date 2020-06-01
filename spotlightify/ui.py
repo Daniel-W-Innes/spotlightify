@@ -3,8 +3,8 @@ from os import sep
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLineEdit
 
-from definitions import ASSETS_DIR
-from widgets import FunctionButtonsRow, SuggestRow, SvgButton
+from spotlightify.definitions import ASSETS_DIR
+from spotlightify.widgets import FunctionButtonsRow, SuggestRow, SvgButton
 
 
 class Ui(QWidget):

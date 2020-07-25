@@ -1,13 +1,12 @@
 from os import sep
-from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLineEdit
-from PyQt5 import QtCore, QtGui
 
-from spotlight.suggestions.menu import Menu
-from spotlight.suggestions.suggestion import Suggestion
-from spotlight.suggestions.handler import CommandHandler
-from widgets import FunctionButtonsRow, SuggestRow, SvgButton
-from definitions import ASSETS_DIR
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtWidgets import QApplication, QWidget, QDesktopWidget, QLineEdit
 from spotipy import Spotify
+
+from definitions import ASSETS_DIR
+from spotlight.suggestions.menu import Menu
+from widgets import FunctionButtonsRow, SuggestRow, SvgButton
 
 
 class Ui(QWidget):
@@ -88,7 +87,7 @@ class Ui(QWidget):
             if event.key() == QtCore.Qt.Key_Return and source.hasFocus():
                 self.suggest_row_handler(source.command)
         if (event.type() == QtCore.QEvent.FocusOut and
-                source is self.textbox and not self.suggestion_has_focus() and not self.function_row.hasFocus()):
+            source is self.textbox and not self.suggestion_has_focus() and not self.function_row.hasFocus()):
             self.textbox.clear()
             self.hide()
             return True
@@ -209,7 +208,7 @@ class Ui(QWidget):
         self.dynamic_resize(length)
         if length != 0:
             for row in range(0, length):
-                command = command_list[row] # changes to dictionary form
+                command = command_list[row]  # changes to dictionary form
                 self.add_row(row, command)
         else:
             self.current_num_of_rows = 0

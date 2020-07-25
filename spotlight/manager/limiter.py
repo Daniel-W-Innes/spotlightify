@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class Limiter:
     limited_methods = {}  # { "method_mem_ref": { "prev_return_obj": obj, "last_check": hh/mm/ss} }
 
@@ -10,6 +11,7 @@ class Limiter:
         :param seconds: Seconds between API calls
         :return: Last obj returned from API call
         '''
+
         def inner_decorator(func):
             def wrapped(*args, **kwargs):
                 func_name = str(func)
@@ -30,6 +32,7 @@ class Limiter:
                     new_obj = func(*args, **kwargs)
                     limited_methods[func_name] = {"prev_return_obj": new_obj, "last_check": datetime.now()}
                     return new_obj
+
             return wrapped
 
         return inner_decorator

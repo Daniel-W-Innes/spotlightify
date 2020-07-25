@@ -12,12 +12,13 @@ from caching.queues import SongQueue, ImageQueue
 from colors import colors
 from definitions import ASSETS_DIR
 from shortcuts import listener
-from spotlight.suggestions.handler import CommandHandler
 from spotlight.manager.manager import PlaybackManager
+from spotlight.suggestions.handler import CommandHandler
 from spotlight.ui import Ui
 
 #  Allow users to use the default spotipy env variables
-if not (all(elem in environ for elem in ["SPOTIPY_CLIENT_ID", "SPOTIPY_CLIENT_SECRET", "SPOTIPY_REDIRECT_URI", "USERNAME"])):
+if not (
+all(elem in environ for elem in ["SPOTIPY_CLIENT_ID", "SPOTIPY_CLIENT_SECRET", "SPOTIPY_REDIRECT_URI", "USERNAME"])):
     from config import USERNAME, CLIENT_ID, CLIENT_SECRET
 
     redirect_uri = "http://localhost:8080"
@@ -68,7 +69,6 @@ def refresh_token():
         print("[WARNING] Could not refresh user API token")
 
 
-
 def focus_ui():  # Only way I could think of to properly focus the ui
     mouse = Controller()
     # mouse position before focus
@@ -76,7 +76,7 @@ def focus_ui():  # Only way I could think of to properly focus the ui
     # changing the mouse position for click
     target_pos_x = ui.pos().x() + ui.textbox.pos().x()
     target_pos_y = ui.pos().y() + ui.textbox.pos().y()
-    mouse.position = (target_pos_x, target_pos_y)
+    mouse.position = (target_pos_x * 2, target_pos_y * 2)
     mouse.click(Button.left)
     mouse.position = mouse_pos_before
 

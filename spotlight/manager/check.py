@@ -1,4 +1,5 @@
 import spotipy
+
 from spotlight.manager.limiter import Limiter
 
 
@@ -61,4 +62,3 @@ class CheckFunctions:
                 return "uri"
             else:
                 return "id"
-

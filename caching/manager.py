@@ -1,11 +1,13 @@
-from threading import Thread
-from spotipy import Spotify
-from colors import colors
 from os import mkdir, path
-from definitions import CACHE_DIR
+from threading import Thread
+
+from spotipy import Spotify
+
 from caching.queues import SongQueue, ImageQueue
 from caching.threads import SongCacheThread, ImageCacheThread, PlaylistCacheThread, LikedCacheThread, AlbumCacheThread, \
     ArtistCacheThread
+from colors import colors
+from definitions import CACHE_DIR
 
 
 class CacheManager(Thread):

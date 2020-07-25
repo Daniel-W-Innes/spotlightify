@@ -1,9 +1,8 @@
-from spotlight.suggestions.commands.command import Command
-from spotlight.suggestions.suggestion import Suggestion
 from caching.holder import CacheHolder
+from spotlight.manager.manager import PlaybackManager
+from spotlight.suggestions.commands.command import Command
 from spotlight.suggestions.items.play import SongItem, QueueItem, PlaylistItem, AlbumItem, ArtistItem
 from spotlight.suggestions.items.template_items import FillItem, WarningItem
-from spotlight.manager.manager import PlaybackManager
 
 
 class PlayCommand(Command):

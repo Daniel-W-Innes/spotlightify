@@ -1,57 +1,47 @@
 from queue import Queue
+
 from spotipy import Spotify
 
-from spotlight.suggestions.commands.command import Command
-from spotlight.suggestions.menu import Menu
-from spotlight.suggestions.suggestion import Suggestion
-from spotlight.suggestions.commands.device import DeviceCommand
 from caching.holder import CacheHolder
+from spotlight.manager.manager import PlaybackManager
+from spotlight.suggestions.commands.change import ShuffleCommand, LikeCommand, RepeatCommand
+from spotlight.suggestions.commands.command import Command
+from spotlight.suggestions.commands.device import DeviceCommand
 from spotlight.suggestions.commands.online import OnlineCommand
-from spotlight.suggestions.commands.template_commands import ParameterCommand
 from spotlight.suggestions.commands.play import PlaylistCommand, SongCommand, AlbumCommand, ArtistCommand, QueueCommand
 from spotlight.suggestions.commands.playing import PlayingCommand
-from spotlight.suggestions.commands.change import ShuffleCommand, LikeCommand, RepeatCommand
-from spotlight.manager.manager import PlaybackManager
+from spotlight.suggestions.commands.template_commands import ParameterCommand
+from spotlight.suggestions.menu import Menu
+from spotlight.suggestions.suggestion import Suggestion
 
 
 class CommandHandler:
     def __init__(self, sp: Spotify, queue: Queue):
         self.sp = sp
-        self.command_list = [SongCommand(),
-                             QueueCommand(),
-                             PlaylistCommand(),
-                             AlbumCommand(),
-                             ArtistCommand(),
-                             PlayingCommand(sp),
-                             ShuffleCommand(sp),
-                             LikeCommand(sp),
-                             OnlineCommand(sp, type="song"),
-                             OnlineCommand(sp, type="queue"),
-                             OnlineCommand(sp, type="artist"),
-                             OnlineCommand(sp, type="playlist"),
-                             OnlineCommand(sp, type="album"),
+        self.command_list = [SongCommand(), QueueCommand(), PlaylistCommand(), AlbumCommand(), ArtistCommand(),
+                             PlayingCommand(sp), ShuffleCommand(sp), LikeCommand(sp), OnlineCommand(sp, type="song"),
+                             OnlineCommand(sp, type="queue"), OnlineCommand(sp, type="artist"),
+                             OnlineCommand(sp, type="playlist"), OnlineCommand(sp, type="album"),
                              ParameterCommand("Go to", "Seeks a position in the current song, i.e. 1:40", "forward",
                                               PlaybackManager.goto, "", "go to "),
                              ParameterCommand("Volume", "Sets the volume of your Spotify Player in range 1-10",
-                                              "volume",
-                                              PlaybackManager.set_volume, "", "volume "),
+                                              "volume", PlaybackManager.set_volume, "", "volume "),
                              DeviceCommand(sp),
-                             Command("Pause", "Pauses playback", "pause", PlaybackManager.pause, "", "pause",
-                                         "exe"),
+                             Command("Pause", "Pauses playback", "pause", PlaybackManager.pause, "", "pause", "exe"),
                              Command("Resume", "Resumes playback", "play", PlaybackManager.resume, "", "resume",
-                                         "exe"),
+                                     "exe"),
                              RepeatCommand(),
                              Command("Skip", "Skips to the next song", "forward", PlaybackManager.skip, "", "skip",
-                                         "exe"),
-                             Command("Previous", "Plays the previous song", "backward", PlaybackManager.previous,
-                                         "", "previous", "exe"),
+                                     "exe"),
+                             Command("Previous", "Plays the previous song", "backward", PlaybackManager.previous, "",
+                                     "previous", "exe"),
                              Command("Saved", "Plays liked music", "heart", PlaybackManager.play_liked, "", "saved",
-                                         "exe"),
+                                     "exe"),
                              Command("Exit", "Exit the application", "exit", PlaybackManager.exit_app, "", "exit",
-                                         "exe"),
-                             Command("Share", "Copy song URL to clipboard", "share", PlaybackManager.copy_url_to_clipboard, "", "share", "exe"),
-                             Command("Title", "Description", "", lambda: None, "", "example", "none")
-                             ]
+                                     "exe"),
+                             Command("Share", "Copy song URL to clipboard", "share",
+                                     PlaybackManager.copy_url_to_clipboard, "", "share", "exe"),
+                             Command("Title", "Description", "", lambda: None, "", "example", "none")]
         self.manager = PlaybackManager(sp, queue)
         self.manager.set_device("")  # Sets default device
         CacheHolder.reload_holder("all")

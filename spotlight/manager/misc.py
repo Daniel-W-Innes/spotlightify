@@ -1,6 +1,5 @@
-from datetime import datetime
-
 import spotipy
+
 from spotlight.manager.limiter import Limiter
 
 
@@ -36,7 +35,7 @@ class MiscFunctions:
         '''
         try:
             if 0 <= value <= 10:
-                self.sp.volume(value*10)
+                self.sp.volume(value * 10)
             else:
                 raise Exception
         except:

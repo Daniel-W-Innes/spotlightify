@@ -1,10 +1,9 @@
 from spotipy import Spotify
 
+from spotlight.manager.manager import PlaybackManager
 from spotlight.suggestions.commands.command import Command
-from spotlight.suggestions.suggestion import Suggestion
 from spotlight.suggestions.items.play import SongItem, QueueItem, AlbumItem, PlaylistItem, ArtistItem
 from spotlight.suggestions.items.template_items import WarningItem
-from spotlight.manager.manager import PlaybackManager
 
 
 class OnlineCommand(Command):

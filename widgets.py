@@ -1,12 +1,13 @@
+from os import sep
+
 from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtSvg import QSvgWidget
 from PyQt5.QtWidgets import QLabel, QWidget, QPushButton
 
-from spotlight.suggestions.suggestion import Suggestion
-from spotlight.manager import check, toggle, playback
-from PyQt5.QtSvg import QSvgWidget
-from PyQt5.QtGui import QPixmap
 from definitions import ASSETS_DIR
-from os import sep
+from spotlight.manager import check, toggle, playback
+from spotlight.suggestions.suggestion import Suggestion
 
 
 class FunctionButtonsRow(QWidget):
@@ -106,7 +107,7 @@ class SuggestRow(QPushButton):
         height, width = [parent.width(), 114]
         self.resize(height, width)
         # makes command dictionary a class variable
-        self.command = command # Stores information about the command the row will hold
+        self.command = command  # Stores information about the command the row will hold
         # widget creation
         self.icon = None  # This can either be an svg or jpg file
         icon_path = self.command.icon_name  # gets the icon path

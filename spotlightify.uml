@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>Python</ID>
+  <OriginalElement>#E:/Repositories/spotlightify</OriginalElement>
+  <nodes>
+    <node x="4400.0" y="994.0">spotlight.suggestions.items.play.SongItem</node>
+    <node x="6183.867920585162" y="1196.0">spotlight.suggestions.commands.playing.PlayingCommand</node>
+    <node x="976.0000000000005" y="994.0">spotlight.suggestions.items.play.QueueItem</node>
+    <node x="1364.0000000000005" y="994.0">spotlight.suggestions.commands.device.DeviceItem</node>
+    <node x="460.0" y="994.0">spotlight.suggestions.items.template_items.WarningFillItem</node>
+    <node x="5311.867920585162" y="1239.0">spotlight.suggestions.commands.play.SongCommand</node>
+    <node x="0.0" y="973.0">spotlight.suggestions.items.template_items.FillItem</node>
+    <node x="4439.867920585162" y="1239.0">spotlight.suggestions.commands.play.AlbumCommand</node>
+    <node x="4780.000000000001" y="951.0">spotlight.suggestions.commands.play.PlayCommand</node>
+    <node x="7963.367920585162" y="751.0">spotlight.suggestions.commands.playing.PlayingItem</node>
+    <node x="3979.867920585162" y="1239.0">spotlight.suggestions.commands.play.PlaylistCommand</node>
+    <node x="7617.367920585162" y="940.0">spotlight.suggestions.commands.online.OnlineCommand</node>
+    <node x="7119.867920585162" y="1207.0">spotlight.suggestions.commands.device.DeviceCommand</node>
+    <node x="5739.867920585162" y="1239.0">spotlight.suggestions.commands.play.ArtistCommand</node>
+    <node x="2109.367920585162" y="751.0">spotlight.suggestions.items.item.Item</node>
+    <node x="4875.867920585162" y="1239.0">spotlight.suggestions.commands.play.QueueCommand</node>
+    <node x="7149.367920585162" y="940.0">spotlight.suggestions.commands.change.ShuffleCommand</node>
+    <node x="2284.0000000000005" y="994.0">spotlight.suggestions.commands.change.RepeatItem</node>
+    <node x="8077.367920585162" y="962.0">spotlight.suggestions.commands.template_commands.ParameterCommand</node>
+    <node x="1800.0000000000005" y="994.0">spotlight.suggestions.items.template_items.WarningItem</node>
+    <node x="7266.867920585162" y="0.0">spotlight.suggestions.suggestion.Suggestion</node>
+    <node x="6630.367920585162" y="896.0">spotlight.suggestions.menu.Menu</node>
+    <node x="7267.367920585162" y="740.0">spotlight.suggestions.commands.command.Command</node>
+    <node x="3988.0000000000005" y="994.0">spotlight.suggestions.items.play.PlaylistItem</node>
+    <node x="2720.0000000000005" y="994.0">spotlight.suggestions.items.template_items.PassiveItem</node>
+    <node x="8649.367920585162" y="929.0">spotlight.suggestions.commands.change.LikeCommand</node>
+    <node x="6659.867920585162" y="1239.0">spotlight.suggestions.commands.change.RepeatCommand</node>
+    <node x="3592.0000000000005" y="994.0">spotlight.suggestions.items.play.ArtistItem</node>
+    <node x="3204.0000000000005" y="994.0">spotlight.suggestions.items.play.AlbumItem</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="spotlight.suggestions.commands.playing.PlayingCommand" target="spotlight.suggestions.menu.Menu">
+      <point x="0.0" y="-70.0" />
+      <point x="6411.867920585162" y="1176.0" />
+      <point x="6713.534587251829" y="1176.0" />
+      <point x="-166.33333333333303" y="125.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.play.SongItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="4580.0" y="836.0" />
+      <point x="2755.5951933124347" y="836.0" />
+      <point x="307.7272727272725" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.play.QueueCommand" target="spotlight.suggestions.commands.play.PlayCommand">
+      <point x="0.0" y="-27.0" />
+      <point x="5083.867920585162" y="1176.0" />
+      <point x="5128.000000000001" y="1176.0" />
+      <point x="0.0" y="70.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.template_items.PassiveItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="2952.0000000000005" y="876.0" />
+      <point x="2509.4133751306167" y="876.0" />
+      <point x="61.545454545454504" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.play.PlaylistItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="4184.0" y="846.0" />
+      <point x="2694.04973876698" y="846.0" />
+      <point x="246.18181818181802" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.play.PlaylistCommand" target="spotlight.suggestions.commands.play.PlayCommand">
+      <point x="0.0" y="-27.0" />
+      <point x="4199.867920585162" y="1166.0" />
+      <point x="4849.600000000001" y="1166.0" />
+      <point x="-278.39999999999964" y="70.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.online.OnlineCommand" target="spotlight.suggestions.commands.command.Command">
+      <point x="0.0" y="-81.0" />
+      <point x="7837.367920585162" y="876.0" />
+      <point x="7661.701253918495" y="876.0" />
+      <point x="56.33333333333303" y="38.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.item.Item" target="spotlight.suggestions.suggestion.Suggestion">
+      <point x="0.0" y="-27.0" />
+      <point x="2447.867920585162" y="715.0" />
+      <point x="7379.701253918495" y="715.0" />
+      <point x="-225.66666666666697" y="345.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.play.SongCommand" target="spotlight.suggestions.commands.play.PlayCommand">
+      <point x="0.0" y="-27.0" />
+      <point x="5515.867920585162" y="1176.0" />
+      <point x="5267.200000000001" y="1176.0" />
+      <point x="139.19999999999982" y="70.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.play.ArtistCommand" target="spotlight.suggestions.commands.play.PlayCommand">
+      <point x="0.0" y="-27.0" />
+      <point x="5951.867920585162" y="1166.0" />
+      <point x="5406.400000000001" y="1166.0" />
+      <point x="278.39999999999964" y="70.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.change.RepeatItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="2492.0000000000005" y="876.0" />
+      <point x="2447.867920585162" y="876.0" />
+      <point x="0.0" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.template_items.WarningFillItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="708.0" y="846.0" />
+      <point x="2201.686102403344" y="846.0" />
+      <point x="-246.18181818181802" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.change.LikeCommand" target="spotlight.suggestions.commands.command.Command">
+      <point x="0.0" y="-92.0" />
+      <point x="8861.367920585162" y="856.0" />
+      <point x="7887.034587251829" y="856.0" />
+      <point x="281.66666666666697" y="38.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.play.ArtistItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="3780.0000000000005" y="856.0" />
+      <point x="2632.5042842215257" y="856.0" />
+      <point x="184.6363636363635" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.play.QueueItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="1160.0000000000005" y="856.0" />
+      <point x="2263.2315569487987" y="856.0" />
+      <point x="-184.6363636363635" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.menu.Menu" target="spotlight.suggestions.commands.command.Command">
+      <point x="0.0" y="-125.0" />
+      <point x="6879.867920585162" y="866.0" />
+      <point x="7436.367920585162" y="866.0" />
+      <point x="-169.0" y="38.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.play.AlbumCommand" target="spotlight.suggestions.commands.play.PlayCommand">
+      <point x="0.0" y="-27.0" />
+      <point x="4647.867920585162" y="1176.0" />
+      <point x="4988.800000000001" y="1176.0" />
+      <point x="-139.19999999999982" y="70.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.device.DeviceCommand" target="spotlight.suggestions.menu.Menu">
+      <point x="0.0" y="-59.0" />
+      <point x="7339.867920585162" y="1176.0" />
+      <point x="7046.201253918495" y="1176.0" />
+      <point x="166.33333333333303" y="125.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.play.AlbumItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="3388.0000000000005" y="866.0" />
+      <point x="2570.958829676071" y="866.0" />
+      <point x="123.09090909090901" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.play.PlayCommand" target="spotlight.suggestions.commands.command.Command">
+      <point x="0.0" y="-70.0" />
+      <point x="5128.000000000001" y="856.0" />
+      <point x="7323.701253918495" y="856.0" />
+      <point x="-281.66666666666697" y="38.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.template_items.WarningItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="2032.0000000000005" y="876.0" />
+      <point x="2386.3224660397077" y="876.0" />
+      <point x="-61.545454545454504" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.device.DeviceItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-27.0" />
+      <point x="1572.0000000000005" y="866.0" />
+      <point x="2324.777011494253" y="866.0" />
+      <point x="-123.09090909090901" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.items.template_items.FillItem" target="spotlight.suggestions.items.item.Item">
+      <point x="0.0" y="-48.0" />
+      <point x="220.0" y="836.0" />
+      <point x="2140.1406478578892" y="836.0" />
+      <point x="-307.727272727273" y="27.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.change.RepeatCommand" target="spotlight.suggestions.menu.Menu">
+      <point x="0.0" y="-27.0" />
+      <point x="0.0" y="125.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.command.Command" target="spotlight.suggestions.suggestion.Suggestion">
+      <point x="0.0" y="-38.0" />
+      <point x="0.0" y="345.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.change.ShuffleCommand" target="spotlight.suggestions.commands.command.Command">
+      <point x="0.0" y="-81.0" />
+      <point x="7373.367920585162" y="876.0" />
+      <point x="7549.034587251829" y="876.0" />
+      <point x="-56.33333333333303" y="38.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.playing.PlayingItem" target="spotlight.suggestions.suggestion.Suggestion">
+      <point x="0.0" y="-27.0" />
+      <point x="8179.367920585162" y="715.0" />
+      <point x="7831.034587251829" y="715.0" />
+      <point x="225.66666666666697" y="345.0" />
+    </edge>
+    <edge source="spotlight.suggestions.commands.template_commands.ParameterCommand" target="spotlight.suggestions.commands.command.Command">
+      <point x="0.0" y="-59.0" />
+      <point x="8353.367920585162" y="866.0" />
+      <point x="7774.367920585162" y="866.0" />
+      <point x="169.0" y="38.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="6830.333333333333" y="486.6666666666672" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+  </Categories>
+</Diagram>
+

@@ -1,4 +1,5 @@
 import spotipy
+
 from spotlight.manager import check
 
 

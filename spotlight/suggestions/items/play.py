@@ -1,6 +1,6 @@
-from spotlight.suggestions.items.item import Item
-from spotlight.suggestions.suggestion import Suggestion
 from spotlight.manager.manager import PlaybackManager
+from spotlight.suggestions.items.item import Item
+
 
 # Item classes that are used in more than one file should be written into this file
 
@@ -14,7 +14,7 @@ class SongItem(Item):
         :param id_: id/uri/term for song
         """
         Item.__init__(self, name, f"By {artists}", image_name if len(image_name) == 22 else "play",
-                            PlaybackManager.play_song, "", id_, "exe")
+                      PlaybackManager.play_song, "", id_, "exe")
 
 
 class QueueItem(Item):
@@ -27,7 +27,7 @@ class QueueItem(Item):
         :param id_: id/uri/term for song
         """
         Item.__init__(self, name, f"By {artists}", image_name if len(image_name) == 22 else "list",
-                            PlaybackManager.queue_song, "", id_, "exe")
+                      PlaybackManager.queue_song, "", id_, "exe")
 
 
 class PlaylistItem(Item):
@@ -40,7 +40,7 @@ class PlaylistItem(Item):
         :param id_: id/uri for playlist
         """
         Item.__init__(self, name, f"By {owner}", image_name if len(image_name) == 22 else "playlist",
-                            PlaybackManager.play_playlist, "", id_, "exe")
+                      PlaybackManager.play_playlist, "", id_, "exe")
 
 
 class ArtistItem(Item):
@@ -53,7 +53,7 @@ class ArtistItem(Item):
         :param id_: id/uri for artist
         """
         Item.__init__(self, name, genre, image_name if len(image_name) == 22 else "artist",
-                            PlaybackManager.play_artist, "", id_, "exe")
+                      PlaybackManager.play_artist, "", id_, "exe")
 
 
 class AlbumItem(Item):
@@ -66,4 +66,4 @@ class AlbumItem(Item):
         :param id_: id/uri for album
         """
         Item.__init__(self, name, f"By {artists}", image_name if len(image_name) == 22 else "album",
-                            PlaybackManager.play_album, "", id_, "exe")
+                      PlaybackManager.play_album, "", id_, "exe")

@@ -1,6 +1,7 @@
 from spotlight.suggestions.commands.command import Command
 from spotlight.suggestions.suggestion import Suggestion
 
+
 class Menu(Command):
     def __init__(self, title: str, description: str, icon: str, prefix: str, menu_items: list, fill_prefix=True):
         Suggestion.__init__(self, title, description, icon, lambda: None, prefix,

@@ -1,5 +1,6 @@
-from definitions import ASSETS_DIR, CACHE_DIR
 from os import sep
+
+from definitions import ASSETS_DIR, CACHE_DIR
 
 
 class Suggestion:
@@ -7,7 +8,8 @@ class Suggestion:
     All suggestions and items inherit from this class
     """
 
-    def __init__(self, title: str, description: str, icon_name: str, function: classmethod, prefix: str, parameter: str, setting: str):
+    def __init__(self, title: str, description: str, icon_name: str, function: classmethod, prefix: str,
+                 parameter: str, setting: str):
         """
         :param title: title of the suggestion (displayed visually)
         :param description: description of the suggestion (displayed visually)
@@ -57,11 +59,12 @@ class Suggestion:
 
     @icon_name.setter
     def icon_name(self, value):
-        if type(value).__name__ != "str": raise Exception("Suggestion.icon_name must be of type str and (the name of an icon or album ID of cached album art)")
+        if type(value).__name__ != "str": raise Exception(
+            "Suggestion.icon_name must be of type str and (the name of an icon or album ID of cached album art)")
         if len(value) == 22:
             self.__icon_name = f"{CACHE_DIR}art{sep}{value}.jpg"
         else:
-            self.__icon_name = f"{ASSETS_DIR}svg{sep}{value if value!='' else 'no-texture'}.svg"
+            self.__icon_name = f"{ASSETS_DIR}svg{sep}{value if value != '' else 'no-texture'}.svg"
 
     @property
     def function(self):
@@ -71,7 +74,8 @@ class Suggestion:
     def function(self, value):
         if value == None:
             self.function = None
-        elif type(value).__name__ != "function": raise Exception("Suggestion.function must be of type function")
+        elif type(value).__name__ != "function":
+            raise Exception("Suggestion.function must be of type function")
         else:
             self.__function = value
 

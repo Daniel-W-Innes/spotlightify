@@ -1,17 +1,18 @@
+from spotipy import Spotify
+
+from spotlight.manager.check import CheckFunctions
+from spotlight.manager.manager import PlaybackManager
 from spotlight.suggestions.commands.command import Command
 from spotlight.suggestions.items.item import Item
-from spotlight.suggestions.suggestion import Suggestion
 from spotlight.suggestions.menu import Menu
-from spotlight.manager.manager import PlaybackManager
-from spotlight.manager.check import CheckFunctions
-from spotipy import Spotify
+
 
 # Dedicated to suggestions which change
 
 class ShuffleCommand(Command):
     def __init__(self, sp: Spotify):
         Command.__init__(self, "Shuffle", "Change Shuffle State", "shuffle", PlaybackManager.toggle_shuffle, "",
-                               "shuffle", "exe")
+                         "shuffle", "exe")
         self.sp = sp
         # The rate limiter requires the same is_song_liked method to run for it to properly limit API requests
         self.check_shuffle = CheckFunctions(self.sp).is_shuffle_on

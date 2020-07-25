@@ -1,13 +1,15 @@
-from threading import Thread
-from os import path, sep, mkdir
-from json import load, dump
-from spotipy import Spotify
 from datetime import datetime, timedelta
-from colors import colors
-from requests import get
+from json import load, dump
+from os import path, sep, mkdir
+from threading import Thread
 from time import sleep
-from definitions import CACHE_DIR
+
+from requests import get
+from spotipy import Spotify
+
 from caching.queues import SongQueue, ImageQueue
+from colors import colors
+from definitions import CACHE_DIR
 
 songs_path = f"{CACHE_DIR}songs.json"
 playlists_path = f"{CACHE_DIR}playlists.json"
@@ -61,7 +63,7 @@ class CacheThread(Thread):
             return False
 
     @staticmethod
-    def combine_artists(data: object):
+    def combine_artists(data: dict):
         artists = ""
         for artist in data["artists"]:
             if artists == "":

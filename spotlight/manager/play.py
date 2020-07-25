@@ -1,6 +1,8 @@
 from queue import Queue
 from random import sample
+
 import spotipy
+
 from caching.holder import CacheHolder
 
 

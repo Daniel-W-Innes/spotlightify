@@ -35,42 +35,23 @@ class CacheHolder:
         '''
 
         # load cached songs
-        def sort(cache: dict, type: str):
-            """
-            Sorts dictionary items into alphabetical order
-            :param cache:
-            :param type:
-            :return:
-            """
-            items = cache[type]
-            cache[type] = dict(sorted(items.items(), key=lambda x: x[1]['name']))
+        def load_cach(path: str, cache_name: str):
+            try:
+                with open(path, 'r') as f:
+                    return dict(sorted(json.load(f)[cache_name].items(), key=lambda x: x[1]['name']))
+            except FileNotFoundError:
+                return
 
-        try:
-            if _type == "song" or _type == "all":
-                with open(song_cache_file_path, 'r') as f:
-                    CacheHolder.song_cache = json.load(f)
-                    sort(CacheHolder.song_cache, "songs")
-                    # load cached artists
-            if _type == "artist" or _type == "all":
-                with open(artist_cache_file_path, 'r') as f:
-                    CacheHolder.artist_cache = json.load(f)
-                    sort(CacheHolder.artist_cache, "artists")
-            # load cached albums
-            if _type == "album" or _type == "all":
-                with open(album_cache_file_path, 'r') as f:
-                    CacheHolder.album_cache = json.load(f)
-                    sort(CacheHolder.album_cache, "albums")
-            # load cached playlists
-            if _type == "playlist" or _type == "all":
-                with open(playlist_cache_file_path, 'r') as f:
-                    CacheHolder.playlist_cache = json.load(f)
-                    sort(CacheHolder.playlist_cache, "playlists")
-            # load cache liked tracks
-            if _type == "liked" or _type == "all":
-                with open(liked_cache_file_path, 'r') as f:
-                    CacheHolder.liked_cache = json.load(f)
-        except:
-            None  # First time startup with no cache, TODO make the except more precise
+        if _type == "song" or _type == "all":
+            CacheHolder.song_cache = load_cach(song_cache_file_path, "songs")
+        if _type == "artist" or _type == "all":
+            CacheHolder.artist_cache = load_cach(artist_cache_file_path, "artists")
+        if _type == "album" or _type == "all":
+            CacheHolder.album_cache = load_cach(album_cache_file_path, "albums")
+        if _type == "playlist" or _type == "all":
+            CacheHolder.playlist_cache = load_cach(playlist_cache_file_path, "playlists")
+        if _type == "liked" or _type == "all":
+            CacheHolder.liked_cache = load_cach(liked_cache_file_path, "songs")
 
 
 # Cached file paths

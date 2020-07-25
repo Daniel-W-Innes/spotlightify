@@ -10,6 +10,7 @@ from spotipy import Spotify
 from caching.queues import SongQueue, ImageQueue
 from colors import colors
 from definitions import CACHE_DIR
+from spotlight.util import cleaner
 
 songs_path = f"{CACHE_DIR}songs.json"
 playlists_path = f"{CACHE_DIR}playlists.json"
@@ -138,7 +139,7 @@ class CacheThread(Thread):
             self.get_image(song["album"]["id"], song["album"])
 
             data["songs"][song["id"]] = {
-                "name": song["name"],
+                "name": cleaner.name(song["name"]),
                 "artist": self.combine_artists(song),
                 "image": song["album"]["id"]
             }
@@ -226,7 +227,7 @@ class PlaylistCacheThread(CacheThread):
         for playlist in playlist_data:
             self.get_image(playlist["id"], playlist)
             data["playlists"][playlist["id"]] = {
-                "name": playlist["name"],
+                "name": cleaner.name(playlist["name"]),
                 "owner": playlist["owner"]["display_name"],
                 "image": playlist["id"]
             }
@@ -294,7 +295,7 @@ class AlbumCacheThread(CacheThread):
             self.song_queue.put(song_data)
 
             data["albums"][album["id"]] = {
-                "name": album["name"],
+                "name": cleaner.name(album["name"]),
                 "artist": self.combine_artists(album),
                 "image": album["id"],
                 "songs": songs_list
@@ -332,7 +333,7 @@ class ArtistCacheThread(CacheThread):
                 genre = artist["genres"][0].title()
 
             data["artists"][artist["id"]] = {
-                "name": artist["name"],
+                "name": cleaner.name(artist["name"]),
                 "genre": genre,
                 "image": artist["id"]
             }

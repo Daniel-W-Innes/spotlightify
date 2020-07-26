@@ -45,7 +45,7 @@ class PlayCommand(Command):
             description = "genre"
             item = ArtistItem
 
-        for key, values in cache[f'{self._type if self._type != "queue" else "song"}s'].items():
+        for key, values in cache.items():
             name = values[title]
             if len(suggestions) == 5:
                 break
